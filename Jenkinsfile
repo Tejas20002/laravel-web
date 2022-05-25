@@ -1,11 +1,6 @@
 pipeline {
     agent any
     stages {
-        stage("Docker build") {
-            steps {
-                sh "sudo docker build -t tjhirani/laravel-docker:latest ."
-            }
-        }
         stage("Build") {
             environment {
                 DB_HOST = credentials("laravel-host")
@@ -20,6 +15,11 @@ pipeline {
                 sh 'cp .env.example .env'
                 sh 'php artisan key:generate'
                 sh 'cp .env .env.testing'
+            }
+        }
+        stage("Docker build") {
+            steps {
+                sh "sudo docker build -t tjhirani/laravel-docker:latest ."
             }
         }
         stage("Docker") {
