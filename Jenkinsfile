@@ -5,7 +5,6 @@ pipeline {
             steps {
                 sh 'php --version'
                 sh 'cp .env.example .env'
-                sh 'php artisan key:generate'
                 sh 'docker'
             }
         }
