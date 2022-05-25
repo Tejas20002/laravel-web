@@ -19,7 +19,7 @@ pipeline {
         }
         stage("Docker build") {
             steps {
-                sh "sudo docker build -t tjhirani/laravel-docker:latest ."
+                sh "docker build -t tjhirani/laravel-docker:latest ."
             }
         }
         stage("Docker") {
@@ -27,8 +27,8 @@ pipeline {
                 DOCKERHUB_CREDENTIALS = credentials('docker-hub')
             }
             steps {
-                sh "sudo docker login --username $DOCKERHUB_CREDENTIALS_USR --password-stdin "
-                sh "sudo docker push tjhirani/laravel-docker:latest"
+                sh "docker login --username $DOCKERHUB_CREDENTIALS_USR --password-stdin "
+                sh "docker push tjhirani/laravel-docker:latest"
             }
         }
     }
