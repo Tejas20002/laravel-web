@@ -19,23 +19,32 @@ pipeline {
         }
         stage("Docker build") {
             steps {
-                sh "docker build -t tjhirani/laravel-docker ."
+                sh "docker build -t tjhirani/laravel-docker:latest ."
             }
         }
         stage("Docker push") {
             environment {
-                DOCKER_USERNAME = credentials("docker-user")
-                DOCKER_PASSWORD = credentials("docker-password")
+                DOCKERHUB_CREDENTIALS = credentials('docker-hub')
             }
             steps {
-                sh "docker login --username ${DOCKER_USERNAME} --password ${DOCKER_PASSWORD}"
+                sh "docker login --username $DOCKERHUB_CREDENTIALS_USR --password-stdin "
                 sh "docker push tjhirani/laravel-docker"
+            }
+        }
+        stage('Push the Docker file'){
+            steps{
+                sh "docker push tjhirani/laravel-docker:latest"
             }
         }
         stage("Deploy to staging") {
             steps {
                 sh "docker run -d --rm -p 80:80 --name laravel-docker tjhirani/laravel-docker"
             }
+        }
+    }
+    post{
+        always{
+            sh 'docker logout'
         }
     }
 }
