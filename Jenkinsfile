@@ -1,6 +1,11 @@
 pipeline {
     agent any
     stages {
+        stage("Docker build") {
+            steps {
+                sh "docker build -t tjhirani/laravel-docker:latest ."
+            }
+        }
         stage("Build") {
             environment {
                 DB_HOST = credentials("laravel-host")
@@ -17,12 +22,7 @@ pipeline {
                 sh 'cp .env .env.testing'
             }
         }
-        stage("Docker build") {
-            steps {
-                sh "docker build -t tjhirani/laravel-docker:latest ."
-            }
-        }
-        stage("Docker push") {
+        stage("Docker") {
             environment {
                 DOCKERHUB_CREDENTIALS = credentials('docker-hub')
             }
@@ -34,11 +34,6 @@ pipeline {
         stage('Push the Docker file'){
             steps{
                 sh "docker push tjhirani/laravel-docker:latest"
-            }
-        }
-        stage("Deploy to staging") {
-            steps {
-                sh "docker run -d --rm -p 80:80 --name laravel-docker tjhirani/laravel-docker"
             }
         }
     }
