@@ -15,10 +15,10 @@ pipeline {
         }
         stage("Docker") {
             environment {
-                DOCKERHUB_CREDENTIALS = credentials('docker-hub')
+                DOCKERHUB_CREDENTIALS=credentials('docker-hub')
             }
             steps {
-                sh "docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin"
+                sh "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin"
                 sh "docker push tjhirani/laravel-docker:latest"
             }
         }
