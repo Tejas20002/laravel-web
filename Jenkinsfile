@@ -34,7 +34,7 @@ pipeline {
     }
     post{
         always{
-            sh 'docker logout'
+            sh 'sudo docker logout'
         }
     }
 }
