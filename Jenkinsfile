@@ -8,11 +8,11 @@ pipeline {
                 sh 'docker'
             }
         }
-//         stage("Docker build") {
-//             steps {
-//                 sh "docker build -t tjhirani/laravel-docker:latest ."
-//             }
-//         }
+        stage("Docker build") {
+            steps {
+                sh "docker build -t tjhirani/laravel-docker:latest ."
+            }
+        }
 //         stage("Docker") {
 //             environment {
 //                 DOCKERHUB_CREDENTIALS = credentials('docker-hub')
