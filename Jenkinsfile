@@ -10,7 +10,7 @@ pipeline {
         }
         stage("Docker build") {
             steps {
-                sh "docker build -t tjhirani/laravel-docker:latest ."
+                sh "sudo docker build -t tjhirani/laravel-docker:latest ."
             }
         }
 //         stage("Docker") {
