@@ -4,6 +4,9 @@ FROM php:7.4-fpm
 ARG user
 ARG uid
 
+#Copy composer.lock and composer.json into the working directory
+COPY composer.lock composer.json /var/www/html/
+
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     git \
