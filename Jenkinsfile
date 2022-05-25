@@ -1,5 +1,5 @@
 pipeline {
-    agent { 'linux' }
+    agent any
     stages {
         stage("Build") {
             steps {
@@ -23,10 +23,5 @@ pipeline {
 //                 sh "docker push tjhirani/laravel-docker:latest"
 //             }
 //         }
-    }
-    post{
-        always{
-//             sh 'docker logout'
-        }
     }
 }
