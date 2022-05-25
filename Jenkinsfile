@@ -18,7 +18,7 @@ pipeline {
                 DOCKERHUB_CREDENTIALS = credentials('docker-hub')
             }
             steps {
-                sh "docker login --username $DOCKERHUB_CREDENTIALS_USR --password-stdin "
+                sh "docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin"
                 sh "docker push tjhirani/laravel-docker:latest"
             }
         }
